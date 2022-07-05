@@ -1,0 +1,41 @@
+services:
+  sequra-api:
+    container_name: sequra-api
+    image: node:12
+    restart: always
+    networks:
+      - sequra 
+    user: "node"
+    volumes:
+      - './api:/home/node/app'
+    working_dir: /home/node/app
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    expose:
+      - "3000"
+    healthcheck:
+      test: curl -f http://sequra-api:3000/credit_agreements?totalWithTax=123 || bash -c 'kill -s 15 -1 && (sleep 10; kill -s 9 -1)'
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: bash -c "npm i && npm start"
+
+  sequra-cdn:
+    container_name: sequra-cdn
+    image: nginx
+    restart: always
+    networks:
+      - sequra
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - "1234:80"
+    environment:
+      - NGINX_PORT=80
+    
+
+networks:
+  sequra:

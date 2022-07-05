@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "target": "es5",
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@Models/*": ["src/models/*"],
+      "@Hooks": ["src/models/hooks"],
+      "@Components": ["src/components"],
+      "@Tools": ["src/tools"],
+      "@Assets": ["src/assets"],
+      "@Types": ["src/typings"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
